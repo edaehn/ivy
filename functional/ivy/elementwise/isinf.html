@@ -244,7 +244,7 @@ ivy.array([False, False, False])</p>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">([[[</span><span class="mf">1.1</span><span class="p">],</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)],</span> <span class="p">[</span><span class="o">-</span><span class="mf">6.3</span><span class="p">]]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">z</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
 <span class="go">ivy.array([[[False],</span>
 <span class="go">        [True],</span>
 <span class="go">        [False]]])</span>
@@ -344,7 +344,8 @@ b: ivy.array([True, False, False])</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="ivy.array.array_methods.isinf">
 <span class="sig-prename descclassname">ivy.Array.</span></span><span class="sig-name descname"><span class="pre">isinf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/ivy/array/elementwise.html#ArrayWithElementwise.isinf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy.array.array_methods.isinf" title="Permalink to this definition"></a></dt>
-<dd><p>ivy.Array instance method variant of <a href="./isinf/isinf_functional.html">ivy.isinf</a>. This method simpfor <a href="./isinf/isinf_functional.html">ivy.isinf</a> function, and so the docstring for ivy.isinf also applies to this
+<dd><p>ivy.Array instance method variant of <a href="./isinf/isinf_functional.html">ivy.isinf</a>. This method simply wraps
+the function, and so the docstring for <a href="./isinf/isinf_functional.html">ivy.isinf</a> also applies to this
 method with minimal changes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
