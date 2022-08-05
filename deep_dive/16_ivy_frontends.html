@@ -20,7 +20,9 @@
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Ivy Frontend Tests" href="17_ivy_frontends_tests.html" />
+    <link rel="prev" title="Ivy Tests" href="15_ivy_tests.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -39,14 +41,41 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../background.html">Background</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../design.html">Design</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../extensions.html">Extensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../roadmap.html">Roadmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../deep_dive.html">Deep Dive</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../deep_dive.html">Deep Dive</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="0_navigating_the_code.html">Navigating the Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_function_types.html">Function Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_backend_setting.html">Backend Setting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_function_wrapping.html">Function Wrapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_arrays.html">Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5_containers.html">Containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_data_types.html">Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7_devices.html">Devices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="8_inplace_updates.html">Inplace Updates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="9_formatting.html">Formatting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10_function_arguments.html">Function Arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="11_submodule_helpers.html">Submodule Helper Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12_docstrings.html">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="13_docstring_examples.html">Docstring Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="14_array_api_tests.html">Array API Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="15_ivy_tests.html">Ivy Tests</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Ivy Frontends</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#basic">Basic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#compositions">Compositions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#further-examples">Further Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="17_ivy_frontends_tests.html">Ivy Frontend Tests</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Functions</span></p>
 <ul>
@@ -116,6 +145,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../contributing.html">Contributing</a> &raquo;</li>
+          <li><a href="../deep_dive.html">Deep Dive</a> &raquo;</li>
       <li>Ivy Frontends</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/deep_dive/16_ivy_frontends.rst.txt" rel="nofollow"> View page source</a>
@@ -135,8 +166,10 @@ framework-specific frontend functional APIs, which play an important role in cod
 transpilations, as explained <a class="reference external" href="https://lets-unify.ai/ivy/design/ivy_as_a_transpiler.html">here</a>.</p>
 <p>Let’s start with some examples to have a better idea on Ivy Frontends!</p>
 </section>
-<section id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading"></a></h2>
+<section id="basic">
+<h2>Basic<a class="headerlink" href="#basic" title="Permalink to this heading"></a></h2>
+<p><strong>NOTE:</strong> Type hints, docstrings and examples are not required when working on
+frontend methods.</p>
 <p><strong>Jax</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># in ivy/functional/frontends/jax/lax/operators.py</span>
 <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
@@ -301,7 +334,49 @@ support the <code class="code docutils literal notranslate"><span class="pre">fl
 according to the <a class="reference external" href="https://pytorch.org/docs/stable/torch.html#math-operations">torch</a> directory. By referring to the <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.tan.html#torch.tan">torch.tan</a> documentation,
 we code its positional and keyword arguments accordingly, then return with
 <code class="code docutils literal notranslate"><span class="pre">ivy.tan</span></code> to link the operation to the backend framework.</p>
-<p><strong>More Examples</strong></p>
+</section>
+<section id="compositions">
+<h2>Compositions<a class="headerlink" href="#compositions" title="Permalink to this heading"></a></h2>
+<p>Sometimes, certain frontend methods meet special criteria:</p>
+<ul class="simple">
+<li><p>it is unique to a particular frontend framework, and does not exist in the other
+frontends, or</p></li>
+<li><p>it has extra features than the original backend method</p></li>
+</ul>
+<p>In such cases, compositions are required to recover the original behaviours.</p>
+<p><strong>Examples</strong></p>
+<p>In the native TensorFlow method <code class="code docutils literal notranslate"><span class="pre">tf.cumprod()</span></code>, it supports an extra
+argument - <code class="code docutils literal notranslate"><span class="pre">reverse</span></code>, which returns a flipped result if True. However,
+the backend <code class="code docutils literal notranslate"><span class="pre">ivy.cumprod()</span></code> does not come with this argument, thus not
+supporting this behaviour by default.</p>
+<p><strong>Ivy</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># in ivy/functional/ivy/general.py</span>
+<span class="k">def</span> <span class="nf">cumprod</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
+    <span class="n">axis</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">exclusive</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="n">current_backend</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">cumprod</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">exclusive</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To enable this behaviour, we will need to incorporate methods that resemble the
+required behaviour. For example, we can reverse the result by calling
+<code class="code docutils literal notranslate"><span class="pre">ivy.flip()</span></code> after running <code class="code docutils literal notranslate"><span class="pre">ivy.cumprod()</span></code>.</p>
+<p><strong>TensorFlow Frontend</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ivy/functional/frontends/tensorflow/math/general.py</span>
+<span class="k">def</span> <span class="nf">cumprod</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">exclusive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">cumprod</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">exclusive</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">reverse</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ret</span>
+</pre></div>
+</div>
+<p>Through compositions, we can easily meet the desired objectives.</p>
+</section>
+<section id="further-examples">
+<h2>Further Examples<a class="headerlink" href="#further-examples" title="Permalink to this heading"></a></h2>
 <p>Additional examples for each framework on concatenation is added for better understanding!</p>
 <p><strong>Jax</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># in ivy/functional/frontends/jax/lax/operators.py</span>
@@ -342,12 +417,15 @@ or reach out on <a class="reference external" href="https://discord.gg/ZVQdvbzNQ
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="15_ivy_tests.html" class="btn btn-neutral float-left" title="Ivy Tests" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="17_ivy_frontends_tests.html" class="btn btn-neutral float-right" title="Ivy Frontend Tests" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020, Ivy Team.</p>
+    <p>&#169; Copyright 2020-2022, Ivy Team.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

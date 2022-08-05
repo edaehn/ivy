@@ -22,7 +22,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="get_all_ivy_arrays_on_dev" href="device/get_all_ivy_arrays_on_dev.html" />
-    <link rel="prev" title="valid_dtype" href="data_type/valid_dtype.html" /> 
+    <link rel="prev" title="promote_types_of_inputs" href="data_type/promote_types_of_inputs.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -49,6 +49,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../deep_dive.html">Deep Dive</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Functions</span></p>
 <ul class="current">
@@ -670,6 +671,23 @@ False.</p></li>
 <dd class="field-odd"><p><em>ret</em> – The percentage used memory on the device.</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">percent_used_mem_on_dev</span><span class="p">(</span><span class="n">device</span> <span class="o">=</span> <span class="s2">&quot;cpu&quot;</span><span class="p">,</span> <span class="n">process_specific</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="go">94.036902561555</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">percent_used_mem_on_dev</span><span class="p">(</span><span class="n">device</span> <span class="o">=</span> <span class="s2">&quot;cpu&quot;</span><span class="p">,</span> <span class="n">process_specific</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="go">0.7024003467681645</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">as_native_dev</span><span class="p">(</span><span class="s2">&quot;gpu:0&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">percent_used_mem_on_dev</span><span class="p">(</span><span class="n">device</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">process_specific</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="go">0.7095597456708771</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -973,14 +991,14 @@ False.</p></li>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="data_type/valid_dtype.html" class="btn btn-neutral float-left" title="valid_dtype" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="data_type/promote_types_of_inputs.html" class="btn btn-neutral float-left" title="promote_types_of_inputs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="device/get_all_ivy_arrays_on_dev.html" class="btn btn-neutral float-right" title="get_all_ivy_arrays_on_dev" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020, Ivy Team.</p>
+    <p>&#169; Copyright 2020-2022, Ivy Team.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

@@ -49,6 +49,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../deep_dive.html">Deep Dive</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Functions</span></p>
 <ul class="current">
@@ -91,6 +92,7 @@
 <li class="toctree-l2"><a class="reference internal" href="data_type/unset_default_int_dtype.html">unset_default_int_dtype</a></li>
 <li class="toctree-l2"><a class="reference internal" href="data_type/unset_default_uint_dtype.html">unset_default_uint_dtype</a></li>
 <li class="toctree-l2"><a class="reference internal" href="data_type/valid_dtype.html">valid_dtype</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_type/promote_types_of_inputs.html">promote_types_of_inputs</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="device.html">Device</a></li>
@@ -374,10 +376,10 @@ corresponding input array.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="../../data_classes/array/array/Array.html#ivy.array.array.Array" title="ivy.array.array.Array"><code class="xref py py-class docutils literal notranslate"><span class="pre">Array</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">NativeArray</span></code>]) – array to broadcast.</p></li>
 <li><p><strong>shape</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">...</span></code>]) – array shape. Must be compatible with x (see Broadcasting). If
-the array is incompatible with the specified shape, the function should raise an
-exception.</p></li>
-<li><p><strong>out</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="../../data_classes/array/array/Array.html#ivy.array.array.Array" title="ivy.array.array.Array"><code class="xref py py-class docutils literal notranslate"><span class="pre">Array</span></code></a>]) – optional output array, for writing the result to. It must have a shape that the (default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)
-inputs broadcast to.</p></li>
+the array is incompatible with the specified shape, the function
+should raise an exception.</p></li>
+<li><p><strong>out</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="../../data_classes/array/array/Array.html#ivy.array.array.Array" title="ivy.array.array.Array"><code class="xref py py-class docutils literal notranslate"><span class="pre">Array</span></code></a>]) – optional output array, for writing the result to. It must have a (default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)
+shape that the inputs broadcast to.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -387,6 +389,39 @@ inputs broadcast to.</p></li>
 <dd class="field-odd"><p><em>ret</em> – an array having a specified shape. Must have the same data type as x.</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<p>With <code class="code docutils literal notranslate"><span class="pre">ivy.Array</span></code> input:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="go">ivy.array([[1, 2, 3],</span>
+<span class="go">           [1, 2, 3],</span>
+<span class="go">           [1, 2, 3]])</span>
+</pre></div>
+</div>
+<p>With <code class="code docutils literal notranslate"><span class="pre">ivy.NativeArray</span></code> input:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">native_array</span><span class="p">([</span><span class="mf">0.1</span> <span class="p">,</span> <span class="mf">0.3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="go">ivy.array([[0.1, 0.3],</span>
+<span class="go">           [0.1, 0.3],</span>
+<span class="go">           [0.1, 0.3]])</span>
+</pre></div>
+</div>
+<p>With <code class="code docutils literal notranslate"><span class="pre">ivy.Container</span></code> input:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]),</span>        <span class="n">b</span><span class="o">=</span><span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="go">{</span>
+<span class="go">    a: ivy.array([[1, 2, 3],</span>
+<span class="go">                  [1, 2, 3],</span>
+<span class="go">                  [1, 2, 3]]),</span>
+<span class="go">    b: ivy.array([[4, 5, 6],</span>
+<span class="go">                  [4, 5, 6],</span>
+<span class="go">                  [4, 5, 6]])</span>
+<span class="go">}</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -464,9 +499,44 @@ otherwise, <code class="docutils literal notranslate"><span class="pre">False</s
 <dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dtype</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
 </dd>
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><em>ret</em> – The closest valid data type as a native ivy.Dtype</p>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><em>ret</em> – The closest valid data type as a native ivy.Dtype</p></li>
+<li><p>This function conforms to the <a href="#id3"><span class="problematic" id="id4">`</span></a>Array API Standard</p></li>
+<li><p><strong>&lt;https</strong> (//data-apis.org/array-api/latest/&gt;`_. This docstring is an extension of the)</p></li>
+<li><p><strong>`docstring &lt;https</strong> (//data-apis.org/array-api/latest/API_specification/generated/signatures.elementwise_functions.add.html&gt;`_ )</p></li>
+<li><p><em>in the standard.</em></p></li>
+</ul>
+</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<p>With <code class="code docutils literal notranslate"><span class="pre">ivy.Dtype</span></code> input:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">xType</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">float16</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">yType</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">closest_valid_dtype</span><span class="p">(</span><span class="n">xType</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">yType</span><span class="p">)</span>
+<span class="go">float16</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">xType</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">int8</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">yType</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">closest_valid_dtype</span><span class="p">(</span><span class="n">xType</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">yType</span><span class="p">)</span>
+<span class="go">int8</span>
+</pre></div>
+</div>
+<p>With <code class="code docutils literal notranslate"><span class="pre">ivy.Native_dtype</span></code> inputs:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">xType</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">native_uint16</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">yType</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">closest_valid_dtype</span><span class="p">(</span><span class="n">xType</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">yType</span><span class="p">)</span>
+<span class="go">&lt;dtype:&#39;uint16&#39;&gt;</span>
+</pre></div>
+</div>
+<p>With <code class="code docutils literal notranslate"><span class="pre">str</span></code> input:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">xType</span> <span class="o">=</span> <span class="s1">&#39;int32&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">yType</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">closest_valid_dtype</span><span class="p">(</span><span class="n">xType</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">yType</span><span class="p">)</span>
+<span class="go">int32</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -503,7 +573,7 @@ otherwise, <code class="docutils literal notranslate"><span class="pre">False</s
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dtype</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dtype</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">NativeDtype</span></code>]</p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p><ul class="simple">
@@ -661,7 +731,7 @@ given, returns uint dtype according to input, else uint32 by default.</p>
 <dd><p>Get the number of bits used for representing the input data type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>dtype_in</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dtype</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The data type to determine the number of bits for.</p>
+<dd class="field-odd"><p><strong>dtype_in</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dtype</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">NativeDtype</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The data type to determine the number of bits for.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
@@ -670,6 +740,34 @@ given, returns uint dtype according to input, else uint32 by default.</p>
 <dd class="field-odd"><p><em>ret</em> – The number of bits used to represent the data type.</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<p>With <code class="code docutils literal notranslate"><span class="pre">ivy.Dtype</span></code> inputs:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">dtype_bits</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="go">32</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">dtype_bits</span><span class="p">(</span><span class="s1">&#39;int64&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="go">64</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">dtype_bits</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">uint16</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="go">16</span>
+</pre></div>
+</div>
+<p>With <code class="code docutils literal notranslate"><span class="pre">ivy.NativeDtype</span></code> inputs:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">dtype_bits</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">native_int8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="go">8</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">dtype_bits</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">native_bool</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -705,7 +803,7 @@ number larger than 1.0 according to the IEEE-754 standard.</p>
 </li>
 </ul>
 </li>
-<li><p>This function conforms to the <a href="#id3"><span class="problematic" id="id4">`</span></a>Array API Standard</p></li>
+<li><p>This function conforms to the <a href="#id5"><span class="problematic" id="id6">`</span></a>Array API Standard</p></li>
 <li><p><strong>&lt;https</strong> (//data-apis.org/array-api/latest/&gt;`_. This docstring is an extension of the)</p></li>
 <li><p><strong>`docstring &lt;https</strong> (//data-apis.org/array-api/latest/API_specification/generated/signatures.data_type_functions.can_cast.html&gt;`_ )</p></li>
 <li><p><em>in the standard.</em></p></li>
@@ -727,7 +825,8 @@ number larger than 1.0 according to the IEEE-754 standard.</p>
 <p>With <code class="code docutils literal notranslate"><span class="pre">ivy.Array</span></code> input:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.3</span><span class="p">,</span><span class="mf">2.1</span><span class="p">,</span><span class="mf">3.4</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">ivy</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ivy</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="go">finfo(resolution=1e-15, min=-1.7976931348623157e+308, max=1.7976931348623157e+308, dtype=float64)</span>
+<span class="go">finfo(resolution=1e-15, min=-1.7976931348623157e+308, /</span>
+<span class="go">max=1.7976931348623157e+308, dtype=float64)</span>
 </pre></div>
 </div>
 <p>With <code class="code docutils literal notranslate"><span class="pre">ivy.NativeArray</span></code> input:</p>
@@ -742,7 +841,8 @@ number larger than 1.0 according to the IEEE-754 standard.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ivy</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 <span class="go">{</span>
 <span class="go">    x: finfo(resolution=0.001, min=-6.55040e+04, max=6.55040e+04, dtype=float16),</span>
-<span class="go">    y: finfo(resolution=1e-15, min=-1.7976931348623157e+308, max=1.7976931348623157e+308, dtype=float64)</span>
+<span class="go">    y: finfo(resolution=1e-15, min=-1.7976931348623157e+308, /</span>
+<span class="go">       max=1.7976931348623157e+308, dtype=float64)</span>
 <span class="go">}</span>
 </pre></div>
 </div>
@@ -757,7 +857,8 @@ number larger than 1.0 according to the IEEE-754 standard.</p>
 <span class="go">                      y=ivy.array([1.3,2.1,3.4], dtype=ivy.float16))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">finfo</span><span class="p">()</span>
 <span class="go">{</span>
-<span class="go">    x: finfo(resolution=1e-15, min=-1.7976931348623157e+308, max=1.7976931348623157e+308, dtype=float64)</span>
+<span class="go">    x: finfo(resolution=1e-15, min=-1.7976931348623157e+308, /</span>
+<span class="go">             max=1.7976931348623157e+308, dtype=float64)</span>
 <span class="go">    y: finfo(resolution=0.001, min=-6.55040e+04, max=6.55040e+04, dtype=float16),</span>
 <span class="go">}</span>
 </pre></div>
@@ -836,7 +937,7 @@ number larger than 1.0 according to the IEEE-754 standard.</p>
 </li>
 </ul>
 </li>
-<li><p>This function conforms to the <a href="#id5"><span class="problematic" id="id6">`</span></a>Array API Standard</p></li>
+<li><p>This function conforms to the <a href="#id7"><span class="problematic" id="id8">`</span></a>Array API Standard</p></li>
 <li><p><strong>&lt;https</strong> (//data-apis.org/array-api/latest/&gt;`_. This docstring is an extension of the)</p></li>
 <li><p><strong>`docstring &lt;https</strong> (//data-apis.org/array-api/latest/API_specification/generated/signatures.data_type_functions.iinfo.html&gt;`_ )</p></li>
 <li><p><em>in the standard.</em></p></li>
@@ -981,9 +1082,9 @@ the current framework.</p>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p><ul class="simple">
 <li><p><em>ret</em> – “True” if the input data type is a bool, otherwise “False”.</p></li>
-<li><p><em>Both the description and the type hints above assumes an array input for simplicity,</em></p></li>
-<li><p>but this function is <em>nestable</em>, and therefore also accepts <code class="code docutils literal notranslate"><span class="pre">ivy.Container</span></code></p></li>
-<li><p><em>instances in place of any of the arguments.</em></p></li>
+<li><p><em>Both the description and the type hints above assumes an array input for</em></p></li>
+<li><p><em>simplicity but this function is *nestable</em>, and therefore also accepts*</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">ivy.Container</span></code> instances in place of any of the arguments.</p></li>
 </ul>
 </p>
 </dd>
@@ -1021,9 +1122,9 @@ the current framework.</p>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p><ul class="simple">
 <li><p><em>ret</em> – “True” if the input data type is an integer, otherwise “False”.</p></li>
-<li><p><em>Both the description and the type hints above assumes an array input for simplicity,</em></p></li>
-<li><p>but this function is <em>nestable</em>, and therefore also accepts <code class="code docutils literal notranslate"><span class="pre">ivy.Container</span></code></p></li>
-<li><p><em>instances in place of any of the arguments.</em></p></li>
+<li><p><em>Both the description and the type hints above assumes an array input for</em></p></li>
+<li><p><em>simplicity but this function is *nestable</em>, and therefore also accepts*</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">ivy.Container</span></code> instances in place of any of the arguments.</p></li>
 </ul>
 </p>
 </dd>
@@ -1142,6 +1243,22 @@ the current framework.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="ivy.functional.ivy.data_type.promote_types_of_inputs">
+<span class="sig-prename descclassname">ivy.</span></span><span class="sig-name descname"><span class="pre">promote_types_of_inputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ivy/functional/ivy/data_type.html#promote_types_of_inputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy.functional.ivy.data_type.promote_types_of_inputs" title="Permalink to this definition"></a></dt>
+<dd><p>Promotes the dtype of the given native array inputs to a common dtype
+based on type promotion rules. While passing float or integer values or any
+other non-array input to this function, it should be noted that the return will
+be an array-like object. Therefore, outputs from this function should be used
+as inputs only for those functions that expect an array-like or tensor-like objects,
+otherwise it might give unexpected results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">NativeArray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">NativeArray</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="ivy.functional.ivy.data_type.result_type">
 <span class="sig-prename descclassname">ivy.</span></span><span class="sig-name descname"><span class="pre">result_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">arrays_and_dtypes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ivy/functional/ivy/data_type.html#result_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy.functional.ivy.data_type.result_type" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the dtype that results from applying the type promotion rules (see
@@ -1159,9 +1276,48 @@ will be implementation-specific.</p>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dtype</span></code></p>
 </dd>
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><em>ret</em> – the dtype resulting from an operation involving the input arrays and dtypes.</p>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><em>ret</em> – the dtype resulting from an operation involving the input arrays and dtypes.</p></li>
+<li><p>This function conforms to the <a href="#id9"><span class="problematic" id="id10">`</span></a>Array API Standard</p></li>
+<li><p><strong>&lt;https</strong> (//data-apis.org/array-api/latest/&gt;`_. This docstring is an extension of the)</p></li>
+<li><p><strong>`docstring &lt;https</strong> (//data-apis.org/array-api/latest/API_specification/generated/signatures.data_type_functions.result_type.html&gt;`_ )</p></li>
+<li><p><em>in the standard.</em></p></li>
+</ul>
+</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<p>With <code class="code docutils literal notranslate"><span class="pre">ivy.Array</span></code> input:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">result_type</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+<span class="go">float64</span>
+</pre></div>
+</div>
+<p>With <code class="code docutils literal notranslate"><span class="pre">ivy.NativeArray</span></code> input:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">native_array</span><span class="p">([</span><span class="mf">3.</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">native_array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">result_type</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+<span class="go">float64</span>
+</pre></div>
+</div>
+<p>With <code class="code docutils literal notranslate"><span class="pre">ivy.Dtype</span></code> input:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">result_type</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">uint64</span><span class="p">))</span>
+<span class="go">uint64</span>
+</pre></div>
+</div>
+<p>With <code class="code docutils literal notranslate"><span class="pre">ivy.Container</span></code> input:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">(</span><span class="n">a</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+<span class="go">int32</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">result_type</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span>
+<span class="go">{</span>
+<span class="go">    a: float64</span>
+<span class="go">}</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -1431,7 +1587,7 @@ current framework.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020, Ivy Team.</p>
+    <p>&#169; Copyright 2020-2022, Ivy Team.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

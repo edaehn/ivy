@@ -51,6 +51,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">The Basics</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#getting-help">Getting Help</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#todo-list-issues">ToDo List Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#extensions">Extensions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#managing-your-fork">Managing Your Fork</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#who-to-ask">Who To Ask</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#with-command-line">With Command Line:</a></li>
@@ -77,6 +78,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../deep_dive.html">Deep Dive</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Functions</span></p>
 <ul>
@@ -250,6 +252,29 @@ src="https://www.youtube.com/embed/wBKTOGmwfbo" class="video">
 <p>For questions, please reach out on the <a class="reference external" href="https://github.com/unifyai/ivy/discussions/1309">contributing discussion</a>
 or on <a class="reference external" href="https://discord.gg/ZVQdvbzNQJ">discord</a> in the <a class="reference external" href="https://discord.com/channels/799879767196958751/982728618469912627">todo list issues channel</a>!</p>
 </section>
+<section id="extensions">
+<h2>Extensions<a class="headerlink" href="#extensions" title="Permalink to this heading"></a></h2>
+<p>We primarily invite contributors to contribute to the tasks listed as <a class="reference internal" href="4_open_tasks.html#open-tasks"><span class="std std-ref">Open Tasks</span></a> as they are
+on our roadmap currently. As a result of this we mainly recommend contributions which fall under the
+<a class="reference internal" href="4_open_tasks.html#open-tasks"><span class="std std-ref">Open Tasks</span></a>. However, if a contributor would like to extend Ivy’s functionality with new
+functions, submodules, etc. then the workflow should ideally be the following:</p>
+<ol class="arabic simple">
+<li><p>Such contributors need to create a PR with the label <code class="code docutils literal notranslate"><span class="pre">Extension</span></code>.</p></li>
+<li><p>They should also describe what they’re adding, as it makes it easier for us to understand its purpose
+and use from your point of view.</p></li>
+<li><p>After regular intervals of time, the team would go through all PRs with the <code class="code docutils literal notranslate"><span class="pre">Extension</span></code> label
+and take a call on it’s use.</p></li>
+<li><p>If the functionality added is useful in the short-term, then we would get the PR merged to master, either
+directly or after some back-and-forth with suggestions, if necessary. This is a rare scenario as most of
+what we need to work on before a release would generally be either already present or being worked on
+by someone on the team.</p></li>
+<li><p>If the functionality added could be potentially useful in a future release or is something that aligns
+with our future roadmap, then we would add the <code class="code docutils literal notranslate"><span class="pre">Future</span> <span class="pre">Release</span></code> label to it, and take a look at
+it again after the next release.</p></li>
+<li><p>Unfortunately, if the functionality added is redundant or something that won’t be useful in the long term, we’ll have
+to close that PR. We’ll clearly specify the reason behind doing so as well.</p></li>
+</ol>
+</section>
 <section id="managing-your-fork">
 <h2>Managing Your Fork<a class="headerlink" href="#managing-your-fork" title="Permalink to this heading"></a></h2>
 <p>When contributing to Ivy, the first step is create a fork of the repository.
@@ -345,6 +370,26 @@ review from us. Therefore, all new PRs will receive a code review,
 so please just wait and we will check out and review your newly created PR
 as soon as possible!
 Your PR will never be closed until we have provided at least code review on it.</p>
+<p>After a new PR is made, for the tests to run, it needs an approval of someone
+from the ivy team for the workflows to start running. Once approved, you can see the failing
+and passing checks for a commit relevant to your PR by clicking on the ❌ or ✔️or 🟤(each for:
+one or more tests are failing, all tests are passing, the check has just started, respectively)
+icon next to the commit hash.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="https://github.com/unifyai/unifyai.github.io/blob/master/img/externally_linked/basics/PR_checks.png?raw=true"><img alt="https://github.com/unifyai/unifyai.github.io/blob/master/img/externally_linked/basics/PR_checks.png?raw=true" src="https://github.com/unifyai/unifyai.github.io/blob/master/img/externally_linked/basics/PR_checks.png?raw=true" style="width: 420px;" /></a>
+</div></blockquote>
+<p>Further, if you click on the details next to a check then you can see the logs for that particular
+test.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="https://github.com/unifyai/unifyai.github.io/blob/master/img/externally_linked/basics/pr_logs.png?raw=true"><img alt="https://github.com/unifyai/unifyai.github.io/blob/master/img/externally_linked/basics/pr_logs.png?raw=true" src="https://github.com/unifyai/unifyai.github.io/blob/master/img/externally_linked/basics/pr_logs.png?raw=true" style="width: 420px;" /></a>
+</div></blockquote>
+<p>Also, if you have pushed multiple commits to a PR in a relatively short time, you may want to cancel
+the checks for a previous commit to speedup the process, you can do that by going to the log page as
+described above and clicking on the <cite>Cancel Workflow</cite> button.</p>
+<p>Note that this option might be unavailable depending on the level of access that you have.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="https://github.com/unifyai/unifyai.github.io/blob/master/img/externally_linked/basics/cancel_workflow.png?raw=true"><img alt="https://github.com/unifyai/unifyai.github.io/blob/master/img/externally_linked/basics/cancel_workflow.png?raw=true" src="https://github.com/unifyai/unifyai.github.io/blob/master/img/externally_linked/basics/cancel_workflow.png?raw=true" style="width: 420px;" /></a>
+</div></blockquote>
 <p>Finally, all PRs must give write access to Ivy maintainers of the branch.
 This can be done by checking a tickbox in the lower right corner of the PR.
 This will enable us to quickly fix conflicts, merge with upstream, and get things moving
@@ -826,7 +871,7 @@ or <a class="reference external" href="https://discord.com/channels/799879767196
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020, Ivy Team.</p>
+    <p>&#169; Copyright 2020-2022, Ivy Team.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
